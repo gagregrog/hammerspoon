@@ -6,11 +6,7 @@ hs.console.clearConsole()
 
 hs.loadSpoon("ReloadConfiguration")
 
-spoon.ReloadConfiguration:start({
-    ignore_paths = {
-        "Menudo.spoon/config.json",
-    }
-})
+spoon.ReloadConfiguration:start()
 
 hs.loadSpoon("Menudo")
 spoon.Menudo:start({
