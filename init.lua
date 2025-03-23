@@ -10,6 +10,7 @@ spoon.ReloadConfiguration:start()
 
 hs.loadSpoon("Menudo")
 spoon.Menudo:start({
-    "AutoCopy",
-    "Windex",
+	"AutoCopy",
+	"SkhdHotReload",
+	"Windex",
 })
