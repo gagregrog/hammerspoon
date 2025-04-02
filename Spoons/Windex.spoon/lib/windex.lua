@@ -16,13 +16,6 @@ function Windex:new(reverse)
 	local screen = win:screen()
 	local viewport = screen:frame()
 
-	-- Adjust viewport for external monitors by adding 40px top margin
-	local screen_name = screen:name():lower()
-	if not (screen_name:match("built%-in") or screen_name:match("color lcd")) then
-		viewport.h = viewport.h - 40
-		viewport.y = viewport.y + 40
-	end
-
 	self_obj = {
 		window = win,
 		frame = frame,
