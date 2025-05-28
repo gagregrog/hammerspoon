@@ -10,6 +10,20 @@ AutoCopy.board = "__autocopy"
 local dragCount = 0
 local clickStack = {}
 
+-- TODO: Pass skipable apps as arguments
+local function shouldSkipForApp()
+    local currentApp = hs.application.frontmostApplication()
+    if not currentApp then return false end
+
+    local bundleID = currentApp:bundleID()
+    if bundleID == "com.apple.QuickTimePlayerX" then
+        return true
+    end
+
+    -- print("Auto copy from app: " .. bundleID)
+    return false
+end
+
 local function paste()
 	currentCopy = hs.pasteboard.readString(AutoCopy.board)
 	if currentCopy then
@@ -68,6 +82,11 @@ local function wasDragging()
 end
 
 local function handleMouseUp(event)
+  if shouldSkipForApp() then
+    dragCount = 0
+    return false
+  end
+
 	local additionalEvents = {}
 
 	-- any time the mouse was dragged while holding the mouse button
@@ -93,6 +112,10 @@ local shiftSelectInProgress = false
 -- handleFlagsChanged runs any time a modifier key is pressed or released
 -- We use this to fire events based on the current state and previous state
 local function handleFlagsChanged(event)
+  if shouldSkipForApp() then
+    return false
+  end
+
 	-- 56 = left_shift, 60 = right_shift
 	-- shift key is the primary driver of our actions
 	-- if a shift key isn't being pressed or released, we don't care about this event
@@ -130,7 +153,7 @@ local function handleKeyDown(event)
 	-- 123 <= arrow keys <= 126
 	-- shift select only happens if we are using arrow keys
 	if event:getKeyCode() < 123 or event:getKeyCode() > 126 then return false end
-	
+
 	shiftSelectInProgress = true
 
 	return false
