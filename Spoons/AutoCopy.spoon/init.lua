@@ -5,19 +5,24 @@ local _spoon = {}
 _spoon.__index = _spoon
 
 _spoon.name = "AutoCopy"
-_spoon.version = "1.0"
+_spoon.version = "1.1"
 _spoon.author = "Robert Reed"
 _spoon.homepage = "https://github.com/Hammerspoon/Spoons"
 _spoon.license = "MIT - https://opensource.org/licenses/MIT"
 
---- spoon.AutoCopy:start()
+--- spoon.AutoCopy:start(config)
 --- Method
 --- Start AutoCopy
 ---
 --- Parameters:
----  * None
-function _spoon:start()
-  AutoCopy:start()
+---  * config = {
+---    skipIDs = {
+---      "budleID1",
+---      "budleID2",
+---    }
+---  }
+function _spoon:start(config)
+	AutoCopy:start(config)
 end
 
 --- spoon.AutoCopy:stop()
@@ -27,7 +32,7 @@ end
 --- Parameters:
 ---  * None
 function _spoon:stop()
-  AutoCopy:stop()
+	AutoCopy:stop()
 end
 
 return _spoon

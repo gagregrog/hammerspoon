@@ -10,7 +10,18 @@ spoon.ReloadConfiguration:start()
 
 hs.loadSpoon("Menudo")
 spoon.Menudo:start({
-	"AutoCopy",
+	{
+		name = "AutoCopy",
+		config = {
+			-- NOTE: To find the bundle identifier for an application:
+			-- osascript -e 'id of app "Application Name"'
+			skipIDs = {
+				"com.apple.QuickTimePlayerX",
+				"cc.ffitch.shottr",
+				"app.tuple.Tuple",
+			},
+		},
+	},
 	"SkhdHotReload",
 	"Windex",
 })

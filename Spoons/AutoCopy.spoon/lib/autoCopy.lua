@@ -6,21 +6,24 @@ local timer = require("hs.timer")
 local AutoCopy = {}
 AutoCopy.__index = AutoCopy
 AutoCopy.board = "__autocopy"
+AutoCopy.skipIDs = {}
 
 local dragCount = 0
 local clickStack = {}
 
--- TODO: Pass skipable apps as arguments
 local function shouldSkipForApp()
     local currentApp = hs.application.frontmostApplication()
     if not currentApp then return false end
 
     local bundleID = currentApp:bundleID()
-    if bundleID == "com.apple.QuickTimePlayerX" then
-        return true
+    
+    -- Iterate through skipIDs table to check for matches
+    for _, skipID in ipairs(AutoCopy.skipIDs) do
+        if bundleID == skipID then
+            return true
+        end
     end
 
-    -- print("Auto copy from app: " .. bundleID)
     return false
 end
 
@@ -165,7 +168,10 @@ AutoCopy._mouseUpEvent = eventtap.new({ eventTypes.leftMouseUp }, handleMouseUp)
 AutoCopy._flagsChangedEvent = eventtap.new({ eventTypes.flagsChanged }, handleFlagsChanged)
 AutoCopy._keyDownEvent = eventtap.new({ eventTypes.keyDown }, handleKeyDown)
 
-function AutoCopy:start()
+function AutoCopy:start(config)
+  if config and config.skipIDs then
+    AutoCopy.skipIDs = config.skipIDs
+  end
   AutoCopy._mouseDownEvent:start()
   AutoCopy._mouseDragEvent:start()
   AutoCopy._mouseUpEvent:start()
