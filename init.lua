@@ -19,6 +19,7 @@ spoon.Menudo:start({
 				"com.apple.QuickTimePlayerX",
 				"cc.ffitch.shottr",
 				"app.tuple.Tuple",
+				"com.autodesk.fusion360",
 			},
 		},
 	},
