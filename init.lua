@@ -18,7 +18,7 @@ spoon.Menudo:start({
 			skipIDs = {
 				"com.apple.QuickTimePlayerX",
 				"cc.ffitch.shottr",
-				"app.tuple.Tuple",
+				"app.tuple.app",
 				"com.autodesk.fusion360",
 			},
 		},
